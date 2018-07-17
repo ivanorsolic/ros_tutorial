@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>//localhost:1313/about/</loc>
+    <lastmod>2018-01-28T22:01:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/systemrequirements/</loc>
+    <lastmod>2018-01-28T22:01:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/distroinstall/</loc>
+    <lastmod>2018-01-28T22:01:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/software/install---copy/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/distroinstall/bootusb/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/systemrequirements/hardware/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/software/bootusb/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/software/</loc>
+    <lastmod>2018-01-28T22:01:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/software/install/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/distroinstall/install/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/systemrequirements/software/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/</loc>
+    <lastmod>2018-01-28T21:48:10+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>//localhost:1313/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

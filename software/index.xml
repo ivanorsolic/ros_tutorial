@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Installing the software on Robot Operating System tutorial</title>
+    <link>//localhost:1313/software/</link>
+    <description>Recent content in Installing the software on Robot Operating System tutorial</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Jan 2018 22:01:36 +0100</lastBuildDate>
+    
+	<atom:link href="//localhost:1313/software/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing Nvidia drivers and CUDA 9</title>
+      <link>//localhost:1313/software/install---copy/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/software/install---copy/</guid>
+      <description>sudo add-apt-repository ppa:graphics-drivers/ppa sudo apt update sudo apt install nvidia-drivers-390 If you have Secure Boot enabled, it may seem that the installation is stuck at building initial module for 4.15.0-23-generic on Ubuntu 18.04.
+It is not stuck, it&amp;rsquo;s actually asking you for your password.
+Enter your password and press enter twice to continue.
+ Reboot!
+ sudo apt install nvidia-cuda-toolkit gcc-6 nvcc --version</description>
+    </item>
+    
+    <item>
+      <title>Installing prerequisites</title>
+      <link>//localhost:1313/software/bootusb/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/software/bootusb/</guid>
+      <description>0. Remove old versions of Docker if installed: sudo apt-get remove docker docker-engine docker.io 1. Install the following dependencies: sudo apt-get install apt-transport-https ca-certificates curl software-properties-common 2. Add the official Docker GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 3. Add the stable package repository: sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs)stable&amp;#34; 4. Install Docker CE: sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install docker-ce 5. Test your Docker installation: You should see the Hello from Docker!</description>
+    </item>
+    
+    <item>
+      <title>Building and running the image</title>
+      <link>//localhost:1313/software/install/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/software/install/</guid>
+      <description>Download the image and the scripts: mkdir -p ~/vmrc_docker/vmrc &amp;amp;&amp;amp; cd ~/vmrc_docker/vmrc wget https://bitbucket.org/osrf/vmrc/raw/default/docker/vmrc/Dockerfile cd .. wget https://bitbucket.org/osrf/vmrc/raw/default/docker/build.bash wget https://bitbucket.org/osrf/vmrc/raw/default/docker/run.bash chmod u+x build.bash run.bash Build the image: ./build.bash vmrc Run the container: ./run.bash vmrc Test the installation: roslaunch robotx_gazebo sandisland.launch If all is well, you should get an image like this, and you&amp;rsquo;re done:
+You can open up another session to your container from your host OS using:
+docker exec -it &amp;lt;YOUR_CONTAINER_ID&amp;gt; bash  If you want to test the buoy, start another session to your docker container, while running the previous roslaunch command, and use the rostopic tool to send commands to the buoy:</description>
+    </item>
+    
+  </channel>
+</rss>

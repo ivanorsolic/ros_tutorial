@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Robot Operating System tutorial</title>
+    <link>//localhost:1313/</link>
+    <description>Recent content on Robot Operating System tutorial</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Jan 2018 21:48:10 +0100</lastBuildDate>
+    
+	<atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing Nvidia drivers and CUDA 9</title>
+      <link>//localhost:1313/software/install---copy/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/software/install---copy/</guid>
+      <description>sudo add-apt-repository ppa:graphics-drivers/ppa sudo apt update sudo apt install nvidia-drivers-390 If you have Secure Boot enabled, it may seem that the installation is stuck at building initial module for 4.15.0-23-generic on Ubuntu 18.04.
+It is not stuck, it&amp;rsquo;s actually asking you for your password.
+Enter your password and press enter twice to continue.
+ Reboot!
+ sudo apt install nvidia-cuda-toolkit gcc-6 nvcc --version</description>
+    </item>
+    
+    <item>
+      <title>Creating a bootable USB</title>
+      <link>//localhost:1313/distroinstall/bootusb/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/distroinstall/bootusb/</guid>
+      <description>Beware of your UEFI/Secure Boot settings while preparing the USB and installing the distro. If you have UEFI enabled, use the GPT option in Rufus and UNetbootin. If you&amp;rsquo;re running CSM/Legacy mode or don&amp;rsquo;t have UEFI on your laptop, use the MBR option.
+In most cases, using the GPT/UEFI option should work just fine with newer laptops.
+ You&amp;rsquo;ll need an USB stick with at least 2 GB of space.</description>
+    </item>
+    
+    <item>
+      <title>Hardware</title>
+      <link>//localhost:1313/systemrequirements/hardware/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/systemrequirements/hardware/</guid>
+      <description>In order to run the VMRC Docker container you&amp;rsquo;ll need to have:
+ A modern multi-core CPU, e.g. Intel Core i5 At least 8 gigs of RAM A discrete Nvidia graphics card  It&amp;rsquo;s possible to run the VMRC without a discrete graphics card, and outside the Docker container by installing it directly to your host OS, but the Gazebo simulator will run slowly.
+ If you still want to try it, have a look at the option 1 in the documentation here.</description>
+    </item>
+    
+    <item>
+      <title>Installing prerequisites</title>
+      <link>//localhost:1313/software/bootusb/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/software/bootusb/</guid>
+      <description>0. Remove old versions of Docker if installed: sudo apt-get remove docker docker-engine docker.io 1. Install the following dependencies: sudo apt-get install apt-transport-https ca-certificates curl software-properties-common 2. Add the official Docker GPG key: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 3. Add the stable package repository: sudo add-apt-repository &amp;#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs)stable&amp;#34; 4. Install Docker CE: sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install docker-ce 5. Test your Docker installation: You should see the Hello from Docker!</description>
+    </item>
+    
+    <item>
+      <title>Building and running the image</title>
+      <link>//localhost:1313/software/install/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/software/install/</guid>
+      <description>Download the image and the scripts: mkdir -p ~/vmrc_docker/vmrc &amp;amp;&amp;amp; cd ~/vmrc_docker/vmrc wget https://bitbucket.org/osrf/vmrc/raw/default/docker/vmrc/Dockerfile cd .. wget https://bitbucket.org/osrf/vmrc/raw/default/docker/build.bash wget https://bitbucket.org/osrf/vmrc/raw/default/docker/run.bash chmod u+x build.bash run.bash Build the image: ./build.bash vmrc Run the container: ./run.bash vmrc Test the installation: roslaunch robotx_gazebo sandisland.launch If all is well, you should get an image like this, and you&amp;rsquo;re done:
+You can open up another session to your container from your host OS using:
+docker exec -it &amp;lt;YOUR_CONTAINER_ID&amp;gt; bash  If you want to test the buoy, start another session to your docker container, while running the previous roslaunch command, and use the rostopic tool to send commands to the buoy:</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>//localhost:1313/distroinstall/install/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/distroinstall/install/</guid>
+      <description>The official Ubuntu installation guide can be found here. (Steps below adapted from the official tut.)
+After booting from the USB, you&amp;rsquo;ll see the window below.
+1. Select your language from the left and select the Install Ubuntu option. Depending on your computer&amp;rsquo;s configuration, you may instead see an alternative boot menu showing a large language selection pane (see below). Just select the Install Ubuntu option, and you&amp;rsquo;ll see the welcome window above in no-time.</description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>//localhost:1313/systemrequirements/software/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/systemrequirements/software/</guid>
+      <description>To run the Docker image, you&amp;rsquo;ll need the following software:
+ A Linux distro, prefferably Ubuntu 16.04 or 18.04 (tested) Curl Nvidia drivers + Cuda Docker CE (and its dependencies) Nvidia Docker  The Docker image is very beta-ish, since it was just recently released. While it most certainly can be run on various Linux distros, we&amp;rsquo;ve had time to test only the Ubuntu distros listed above, and will assume for the rest of this tutorial that you&amp;rsquo;re using one of them.</description>
+    </item>
+    
+  </channel>
+</rss>

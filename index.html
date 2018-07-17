@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <meta name="generator" content="Hugo 0.44" />
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>Robot Operating System tutorial</title>
+
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="//localhost:1313/css/styles.css">
+  
+  <link href="//localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Robot Operating System tutorial" />
+
+</head>
+<body>
+
+<div class="sidebar sidebar-default">
+    <div class="navigation">
+        <div>
+    FSec IoT Hacking Summer School
+</div>
+
+        <h1 class="site-title"><a href="//localhost:1313/">Robot Operating System tutorial</a></h1>
+
+
+        <nav class="internal">
+            <ul>
+    
+        
+            
+    <li>
+        <a href="#about">About</a>
+    </li>
+
+
+
+        
+            
+    <li>
+        <a href="#system_requirements">System requirements</a>
+        <ul>
+            
+            
+                <li><a href="#hardware">Hardware</a></li>
+            
+                <li><a href="#software">Software</a></li>
+            
+        </ul>
+    </li>
+
+
+
+        
+            
+    <li>
+        <a href="#distroinstall">Installing Ubuntu</a>
+        <ul>
+            
+            
+                <li><a href="#prepareusb">Creating a bootable USB</a></li>
+            
+                <li><a href="#ubuntuinstall">Installation</a></li>
+            
+        </ul>
+    </li>
+
+
+
+        
+            
+    <li>
+        <a href="#softwareinstall">Installing the software</a>
+        <ul>
+            
+            
+                <li><a href="#nvidiacuda">Installing Nvidia drivers and CUDA 9</a></li>
+            
+                <li><a href="#prereqsoftware">Installing prerequisites</a></li>
+            
+                <li><a href="#dockerimage">Building and running the image</a></li>
+            
+        </ul>
+    </li>
+
+
+
+        
+    
+</ul>
+
+        </nav>
+
+        <nav class="external">
+            <div class="external-title">Useful links</div>
+            
+            <ul id="shortcuts">
+                
+                <li>
+                    <a href="https://bitbucket.org/osrf/vmrc/wiki/tutorials/SystemSetupDocker" target="_blank" rel="noopener">VMRC Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="https://hack.foi.hr" target="_blank" rel="noopener">hack.foi.hr</a>
+                </li>
+                
+            </ul>
+            
+        </nav>
+    </div>
+
+    <div class="version">
+            generated on Jul 17, 2018
+    </div>
+</div>
+
+<div class="content">
+    
+        
+            
+    <section class="page" id="about">
+    <h1>
+        <a href="#about">About</a>
+    </h1>
+    <div class="content">
+        <p>This is a tutorial on how to setup the environment needed for Zoz&rsquo;s workshop: <strong><em>A Robot Operating System (ROS) tutorial</em></strong>.</p>
+
+<p>For the workshop, you&rsquo;ll be using the <strong>Gazebo simulator</strong> to get started with the <strong>ROS</strong>. The best way to get everything up and running, is to use the <strong>prepared Docker image</strong>, which this tut will cover.</p>
+
+    </div>
+</section>
+
+
+
+
+        
+            
+    <section class="page" id="system_requirements">
+    <h1>
+        <a href="#system_requirements">System requirements</a>
+    </h1>
+    <div class="content">
+        
+    </div>
+</section>
+
+    
+            
+                <section class="page" id="hardware">
+    <h1>
+        <a href="#hardware">Hardware</a>
+    </h1>
+    <div class="content">
+        <p><strong>In order to run the VMRC Docker container you&rsquo;ll need to have:</strong></p>
+
+<ul>
+<li>A modern multi-core CPU, e.g. Intel Core i5</li>
+<li>At least 8 gigs of RAM</li>
+<li>A discrete Nvidia graphics card</li>
+</ul>
+
+<div class="block note">
+    <p><strong>It&rsquo;s possible to run the VMRC without a discrete graphics card</strong>, and outside the Docker container <strong>by installing it directly to your host OS</strong>, but the Gazebo simulator will run slowly.</p>
+
+</div>
+
+
+<div class="block tip">
+    <p><a href="https://bitbucket.org/osrf/vmrc/wiki/tutorials/SystemSetupInstall">If you still want to try it, have a look at the option 1 in the documentation here.</a></p>
+
+</div>
+
+
+    </div>
+</section>
+
+            
+                <section class="page" id="software">
+    <h1>
+        <a href="#software">Software</a>
+    </h1>
+    <div class="content">
+        <p>To run the Docker image, you&rsquo;ll need the following software:</p>
+
+<ul>
+<li>A Linux distro, prefferably Ubuntu 16.04 or 18.04 (tested)</li>
+<li>Curl</li>
+<li>Nvidia drivers + Cuda</li>
+<li>Docker CE (and its dependencies)</li>
+<li>Nvidia Docker</li>
+</ul>
+
+<div class="block warn">
+    <p><strong>The Docker image is very beta-ish, since it was just recently released.</strong> While it most certainly can be run on various Linux distros, we&rsquo;ve had time to test only the Ubuntu distros listed above, and will assume for the rest of this tutorial that you&rsquo;re using one of them. Feel free to install it on any distro of your flavour, adapting some parts of the tuts. We&rsquo;re sure you&rsquo;ve got it covered.</p>
+
+</div>
+
+
+    </div>
+</section>
+
+            
+
+
+
+        
+            
+    <section class="page" id="distroinstall">
+    <h1>
+        <a href="#distroinstall">Installing Ubuntu</a>
+    </h1>
+    <div class="content">
+        <div class="block note">
+    <p>This one obviously isn&rsquo;t for you guys who know how to install a distro with a blindfold and one hand tied behind back. But in order to make this workshop accessible even to those who don&rsquo;t, this part explains how to install a distro. Feel free to skip this one if you&rsquo;ve already got Ubuntu 16.04 or 18.04 up and running. :)</p>
+
+</div>
+
+
+    </div>
+</section>
+
+    
+            
+                <section class="page" id="prepareusb">
+    <h1>
+        <a href="#prepareusb">Creating a bootable USB</a>
+    </h1>
+    <div class="content">
+        <div class="block warn">
+    <p>Beware of your UEFI/Secure Boot settings while preparing the USB and installing the distro. If you have UEFI enabled, use the GPT option in Rufus and UNetbootin. If you&rsquo;re running CSM/Legacy mode or don&rsquo;t have UEFI on your laptop, use the MBR option.</p>
+
+<p><strong>In most cases, using the GPT/UEFI option should work just fine with newer laptops.</strong></p>
+
+</div>
+
+
+<p><strong>You&rsquo;ll need an USB stick with at least 2 GB of space.</strong></p>
+
+<p>You can find the official Ubuntu tutorials for creating a bootable USB on <a href="https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-macos#0">Mac OS X</a>, <a href="https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-ubuntu#0">Linux</a> and <a href="https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows#0">Windows here</a>. Or you can follow the steps below:</p>
+
+<ol>
+<li><a href="http://releases.ubuntu.com/releases/18.04/ubuntu-18.04-desktop-amd64.iso"><strong>Download Ubuntu 18.04 ISO here</strong></a>. (<a href="http://releases.ubuntu.com/releases/18.04/">Checksums available here.</a>)</li>
+<li><strong>Download <a href="https://rufus.akeo.ie/downloads/rufus-3.1.exe">Rufus</a></strong> (Win) <strong>or <a href="https://unetbootin.github.io/">UNetbootin</a></strong> (Win/Mac OS X/Linux).</li>
+<li><strong><a href="https://i.imgur.com/5MYBHeA.gifv">Flash the ISO image on the USB.</a></strong></li>
+<li><strong>Plug in the prepared USB and reboot your PC.</strong></li>
+</ol>
+
+<p><div class="block info">
+    <p>Most computers will boot from USB automatically. Simply insert the USB flash drive and either power on your computer or restart it.</p>
+
+<p>If your computer doesn&rsquo;t automatically boot from USB, try holding <code>F12</code> when your computer first starts. With most machines, this will allow you to select the USB device from a system-specific boot menu.</p>
+
+</div>
+</p>
+
+<div class="block tip">
+    <p>F12 is the most common key for bringing up your system&rsquo;s boot menu, but Escape, F2 and F10 are common alternatives. If you&rsquo;re unsure, look for a brief message when your system starts - this will often inform you of which key to press to bring up the boot menu.</p>
+
+</div>
+
+
+    </div>
+</section>
+
+            
+                <section class="page" id="ubuntuinstall">
+    <h1>
+        <a href="#ubuntuinstall">Installation</a>
+    </h1>
+    <div class="content">
+        
+
+<p><a href="https://tutorials.ubuntu.com/tutorial/tutorial-install-ubuntu-desktop#0">The official Ubuntu installation guide can be found here.</a> (Steps below adapted from the official tut.)</p>
+
+<p>After booting from the USB, you&rsquo;ll see the window below.</p>
+
+<h3 id="1-select-your-language-from-the-left-and-select-the-install-ubuntu-option">1. Select your language from the left and <strong>select the</strong> <strong>Install Ubuntu</strong> option.</h3>
+
+<p><img src="https://tutorials.ubuntu.com/es6-bundled/src/codelabs/tutorial-install-ubuntu-desktop/img/747a83dc503cd86c.png" alt="img" /></p>
+
+<div class="block info">
+    <p>Depending on your computer&rsquo;s configuration, you may instead see an alternative boot menu showing a large language selection pane (see below). Just select the Install Ubuntu option, and you&rsquo;ll see the welcome window above in no-time.</p>
+
+<p><center></p>
+
+<p><img src="https://tutorials.ubuntu.com/es6-bundled/src/codelabs/tutorial-install-ubuntu-desktop/img/699b0968468ce256.png" alt="" /></center></p>
+
+</div>
+
+
+<h3 id="2-select-your-keyboard-layout">2. Select your keyboard layout</h3>
+
+<p><img src="https://4.bp.blogspot.com/-QwLJKNneq7M/WqvnIIev_SI/AAAAAAAAPUk/xJouRVc2Qp4lLA-3xzNKEHw8H4Kn-NIdwCLcBGAs/s1600/Screenshot%2Bfrom%2B2018-03-12%2B00-35-12.png" alt="" /></p>
+
+<h3 id="3-connect-to-a-network-or-don-t">3. Connect to a network (or don&rsquo;t)</h3>
+
+<p><img src="https://2.bp.blogspot.com/-sVx1RX286aE/WrxpCw-EHWI/AAAAAAAAPjE/ZDdfc9KLvyUi1MIrttqB3a1jan7Nknr2gCLcBGAs/s1600/Screenshot%2Bfrom%2B2018-03-12%2B00-35-21.png" alt="" /></p>
+
+<h3 id="4-select-what-to-install">4. Select what to install</h3>
+
+<p>The normal instalation should be just fine for this workshop. You can use the minimal installation, but it&rsquo;ll only make your life harder if you don&rsquo;t know everything you&rsquo;re doing. Also it&rsquo;s OK to download updates while installing Ubuntu.</p>
+
+<p><img src="https://www.fosslinux.com/wp-content/uploads/2018/03/ubiquity-software-after-try2.png" alt="" /></p>
+
+<h3 id="5-select-your-installation-type">5. Select your installation type</h3>
+
+<p>You can install Ubuntu alongside already existing operating systems, and you should if you&rsquo;re a beginner and already have one on your laptop. Or you can partition it your way by selecting something else.</p>
+
+<p>We&rsquo;ll assume you&rsquo;re installing <strong>Ubuntu alongside an already existing OS</strong>. If you&rsquo;re not, just skip the next step.</p>
+
+<p><img src="https://2.bp.blogspot.com/-8IVQFqJ0SzE/WqvnhXSYK5I/AAAAAAAAPU0/Gj_L_5vI2eoRdYyxxwb1qOi7DNBBB1lyACLcBGAs/s1600/Screenshot%2Bfrom%2B2018-03-12%2B00-36-26.png" alt="" /></p>
+
+<h3 id="6-install-ubuntu-alongside-an-os">6. Install Ubuntu alongside an OS</h3>
+
+<p>Move the divider to adjust the amount of space you want to give to your Ubuntu installation and click install now.</p>
+
+<p><img src="https://assets.ubuntu.com/v1/6d01bd8c-download-desktop-install-ubuntu-desktop_5.jpg" alt="" /></p>
+
+<h3 id="7-enter-the-rest-of-your-information">7. Enter the rest of your information</h3>
+
+<p>Select your geolocation.</p>
+
+<p><img src="https://cloud.addictivetips.com/wp-content/uploads/2017/04/ubuntu-time-zone-1.png" alt="" /></p>
+
+<p>Create your username and password.</p>
+
+<p><img src="https://websiteforstudents.com/wp-content/uploads/2018/02/ubuntu_1804_installation_6.png" alt="" /></p>
+
+<h3 id="8-you-should-be-done">8. You should be done!</h3>
+
+<p>Feel free to reboot your PC and boot into Ubuntu.</p>
+
+<p><img src="https://2.bp.blogspot.com/-8uthpVM82kQ/WqvoR_ITw0I/AAAAAAAAPVY/Jg-7jR9CBMIAebqORrMBBonpScB68nUYACLcBGAs/s1600/Screenshot%2Bfrom%2B2018-03-12%2B07-48-21.png" alt="" /></p>
+
+    </div>
+</section>
+
+            
+
+
+
+        
+            
+    <section class="page" id="softwareinstall">
+    <h1>
+        <a href="#softwareinstall">Installing the software</a>
+    </h1>
+    <div class="content">
+        <p>After booting into your Linux distro, we can begin installing the prerequisites and build our Docker image afterwards.</p>
+
+    </div>
+</section>
+
+    
+            
+                <section class="page" id="nvidiacuda">
+    <h1>
+        <a href="#nvidiacuda">Installing Nvidia drivers and CUDA 9</a>
+    </h1>
+    <div class="content">
+        <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo add-apt-repository ppa:graphics-drivers/ppa
+
+sudo apt update
+
+sudo apt install nvidia-drivers-390</code></pre></div>
+<div class="block warn">
+    <p>If you have Secure Boot enabled, it may seem that the installation is stuck at <strong><em>building initial module for 4.15.0-23-generic</em></strong> on <strong>Ubuntu 18.04</strong>.</p>
+
+<p><a href="https://bugs.launchpad.net/ubuntu/+source/apt/+bug/1780885"><strong>It is not stuck, it&rsquo;s actually asking you for your password.</strong></a></p>
+
+<p><strong>Enter your password and press enter twice to continue.</strong></p>
+
+</div>
+
+
+<div class="block info">
+    <p><strong>Reboot!</strong></p>
+
+</div>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install nvidia-cuda-toolkit gcc-6
+
+nvcc --version</code></pre></div>
+    </div>
+</section>
+
+            
+                <section class="page" id="prereqsoftware">
+    <h1>
+        <a href="#prereqsoftware">Installing prerequisites</a>
+    </h1>
+    <div class="content">
+        
+
+<h3 id="0-remove-old-versions-of-docker-if-installed">0. Remove old versions of Docker if installed:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get remove docker docker-engine docker.io</code></pre></div>
+<h3 id="1-install-the-following-dependencies">1. Install the following dependencies:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</code></pre></div>
+<h3 id="2-add-the-official-docker-gpg-key">2. Add the official Docker GPG key:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span style="color:#111">|</span> sudo apt-key add -</code></pre></div>
+<h3 id="3-add-the-stable-package-repository">3. Add the stable package repository:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo add-apt-repository <span style="color:#d88200">&#34;deb [arch=amd64] https://download.docker.com/linux/ubuntu </span><span style="color:#00a8c8">$(</span>lsb_release -cs<span style="color:#00a8c8">)</span><span style="color:#d88200"> stable&#34;</span></code></pre></div>
+<h3 id="4-install-docker-ce">4. Install Docker CE:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get install docker-ce</code></pre></div>
+<h3 id="5-test-your-docker-installation">5. Test your Docker installation:</h3>
+
+<p>You should see the <strong><em>Hello from Docker!</em></strong> message if your installation was successful.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo docker run hello-world</code></pre></div>
+<h3 id="6-install-nvidia-docker">6. Install Nvidia Docker:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span style="color:#111">|</span> sudo apt-key add -
+
+<span style="color:#111">distribution</span><span style="color:#f92672">=</span><span style="color:#00a8c8">$(</span>. /etc/os-release<span style="color:#111">;</span><span style="color:#111">echo</span> <span style="color:#111">$ID$VERSION_ID</span><span style="color:#00a8c8">)</span>
+
+curl -s -L https://nvidia.github.io/nvidia-docker/<span style="color:#111">$distribution</span>/nvidia-docker.list <span style="color:#111">|</span> <span style="color:#8045ff">\
+</span><span style="color:#8045ff"></span>
+sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update</code></pre></div>
+<h3 id="7-install-nvidia-docker-v2">7. Install Nvidia Docker v2:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install -y nvidia-docker2</code></pre></div>
+<h3 id="8-restart-the-docker-daemon">8. Restart the Docker daemon:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo service docker restart</code></pre></div>
+<h3 id="9-add-your-user-to-the-docker-group">9. Add your user to the docker group:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo usermod -a -G docker <span style="color:#111">$USER</span></code></pre></div>
+<div class="block info">
+    <p>Reboot or logout!</p>
+
+</div>
+
+
+<h3 id="10-verify-the-installation">10. Verify the installation:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run --runtime<span style="color:#f92672">=</span>nvidia --rm nvidia/cuda nvidia-smi</code></pre></div>
+<p>You should get a window that looks like this:</p>
+
+<p><img src="https://i.imgur.com/7wGqyVA.png" alt="" /></p>
+
+    </div>
+</section>
+
+            
+                <section class="page" id="dockerimage">
+    <h1>
+        <a href="#dockerimage">Building and running the image</a>
+    </h1>
+    <div class="content">
+        
+
+<h3 id="download-the-image-and-the-scripts">Download the image and the scripts:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p ~/vmrc_docker/vmrc <span style="color:#f92672">&amp;&amp;</span> <span style="color:#111">cd</span> ~/vmrc_docker/vmrc
+
+wget https://bitbucket.org/osrf/vmrc/raw/default/docker/vmrc/Dockerfile
+
+<span style="color:#111">cd</span> ..
+
+wget https://bitbucket.org/osrf/vmrc/raw/default/docker/build.bash
+
+wget https://bitbucket.org/osrf/vmrc/raw/default/docker/run.bash
+
+chmod u+x build.bash run.bash</code></pre></div>
+<h3 id="build-the-image">Build the image:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./build.bash vmrc</code></pre></div>
+<h3 id="run-the-container">Run the container:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./run.bash vmrc</code></pre></div>
+<h3 id="test-the-installation">Test the installation:</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">roslaunch robotx_gazebo sandisland.launch</code></pre></div>
+<p>If all is well, you should get an image like this, and you&rsquo;re done:</p>
+
+<p><img src="https://i.imgur.com/5fWGTEy.jpg" alt="" /></p>
+
+<div class="block tip">
+    <p>You can open up another session to your container from your host OS using:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker <span style="color:#111">exec</span> -it &lt;YOUR_CONTAINER_ID&gt; bash</code></pre></div>
+</div>
+
+
+<p>If you want to test the buoy, start another session to your docker container, while running the previous roslaunch command, and use the rostopic tool to send commands to the buoy:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rostopic pub --once /cmd_drive usv_gazebo_plugins/UsvDrive <span style="color:#d88200">&#39;{left: 1.0, right: 1.0}&#39;</span></code></pre></div>
+<p>The upper command should move the buoy forward!</p>
+
+    </div>
+</section>
+
+            
+
+
+
+        
+    
+</div>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+</html>
+

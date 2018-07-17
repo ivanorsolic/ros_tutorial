@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>System requirements on Robot Operating System tutorial</title>
+    <link>//localhost:1313/systemrequirements/</link>
+    <description>Recent content in System requirements on Robot Operating System tutorial</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Jan 2018 22:01:36 +0100</lastBuildDate>
+    
+	<atom:link href="//localhost:1313/systemrequirements/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hardware</title>
+      <link>//localhost:1313/systemrequirements/hardware/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/systemrequirements/hardware/</guid>
+      <description>In order to run the VMRC Docker container you&amp;rsquo;ll need to have:
+ A modern multi-core CPU, e.g. Intel Core i5 At least 8 gigs of RAM A discrete Nvidia graphics card  It&amp;rsquo;s possible to run the VMRC without a discrete graphics card, and outside the Docker container by installing it directly to your host OS, but the Gazebo simulator will run slowly.
+ If you still want to try it, have a look at the option 1 in the documentation here.</description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>//localhost:1313/systemrequirements/software/</link>
+      <pubDate>Sun, 28 Jan 2018 21:48:10 +0100</pubDate>
+      
+      <guid>//localhost:1313/systemrequirements/software/</guid>
+      <description>To run the Docker image, you&amp;rsquo;ll need the following software:
+ A Linux distro, prefferably Ubuntu 16.04 or 18.04 (tested) Curl Nvidia drivers + Cuda Docker CE (and its dependencies) Nvidia Docker  The Docker image is very beta-ish, since it was just recently released. While it most certainly can be run on various Linux distros, we&amp;rsquo;ve had time to test only the Ubuntu distros listed above, and will assume for the rest of this tutorial that you&amp;rsquo;re using one of them.</description>
+    </item>
+    
+  </channel>
+</rss>
